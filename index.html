@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRC Evidence Automation</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">G</div>
+          <div>
+            <strong>GRCFlow</strong>
+            <span>Evidence automation</span>
+          </div>
+        </div>
+        <nav class="nav-list" aria-label="Views">
+          <button class="nav-item active" type="button" data-view="overview" title="Overview">
+            <span class="icon" aria-hidden="true">⌂</span>
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" type="button" data-view="requests" title="Requests">
+            <span class="icon" aria-hidden="true">□</span>
+            <span>Requests</span>
+          </button>
+          <button class="nav-item" type="button" data-view="controls" title="Controls">
+            <span class="icon" aria-hidden="true">▦</span>
+            <span>Controls</span>
+          </button>
+          <button class="nav-item" type="button" data-view="testing" title="Testing">
+            <span class="icon" aria-hidden="true">✓</span>
+            <span>Testing</span>
+          </button>
+          <button class="nav-item" type="button" data-view="audit" title="Audit log">
+            <span class="icon" aria-hidden="true">≡</span>
+            <span>Audit Log</span>
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <span>Audit period</span>
+          <strong>Q2 2026</strong>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>GRC Evidence Automation</h1>
+            <p>Request evidence, test sufficiency, and prepare reviewer comments.</p>
+          </div>
+          <div class="topbar-actions">
+            <button class="secondary-button" id="resetData" type="button">Reset Demo</button>
+            <button class="secondary-button" id="exportReport" type="button">Export Report</button>
+            <button class="primary-button" id="newRequest" type="button">New Request</button>
+          </div>
+        </header>
+
+        <section class="view active" id="overview" aria-labelledby="overview-title">
+          <div class="metrics-grid">
+            <article class="metric">
+              <span>Controls</span>
+              <strong id="metricControls">0</strong>
+              <small>In scope</small>
+            </article>
+            <article class="metric">
+              <span>Open Requests</span>
+              <strong id="metricOpen">0</strong>
+              <small>Awaiting evidence</small>
+            </article>
+            <article class="metric">
+              <span>Needs Review</span>
+              <strong id="metricReview">0</strong>
+              <small>AI found gaps</small>
+            </article>
+            <article class="metric">
+              <span>Readiness</span>
+              <strong id="metricReady">0%</strong>
+              <small>Accepted evidence</small>
+            </article>
+          </div>
+
+          <div class="two-column">
+            <section class="panel">
+              <div class="panel-header">
+                <h2 id="overview-title">Control Readiness</h2>
+                <span class="pill">Live</span>
+              </div>
+              <div class="readiness-chart" id="readinessChart" aria-label="Control readiness chart"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <h2>Priority Queue</h2>
+                <span class="pill subtle">Exceptions first</span>
+              </div>
+              <div class="queue-list" id="priorityQueue"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="controls" aria-labelledby="controls-title">
+          <div class="section-tools">
+            <div>
+              <h2 id="controls-title">Control Library</h2>
+              <p>Define control objectives, owners, evidence requirements, and test procedures.</p>
+            </div>
+            <button class="primary-button" id="newControl" type="button">Add Control</button>
+          </div>
+          <div class="controls-grid" id="controlsGrid"></div>
+        </section>
+
+        <section class="view" id="requests" aria-labelledby="requests-title">
+          <div class="section-tools">
+            <div>
+              <h2 id="requests-title">Evidence Requests</h2>
+              <p>Assign owners, set due dates, and track submissions.</p>
+            </div>
+            <div class="filter-group" role="group" aria-label="Request filters">
+              <button class="chip active" type="button" data-filter="all">All</button>
+              <button class="chip" type="button" data-filter="requested">Requested</button>
+              <button class="chip" type="button" data-filter="submitted">Submitted</button>
+              <button class="chip" type="button" data-filter="needs-review">Needs Review</button>
+              <button class="chip" type="button" data-filter="accepted">Accepted</button>
+            </div>
+          </div>
+          <div class="request-table-wrap">
+            <table class="request-table">
+              <thead>
+                <tr>
+                  <th>Control</th>
+                  <th>Owner</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                  <th>Evidence</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="requestRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="testing" aria-labelledby="testing-title">
+          <div class="testing-layout">
+            <section class="panel">
+              <div class="panel-header">
+                <h2 id="testing-title">Evidence Testing</h2>
+                <span class="pill subtle" id="selectedStatus">No selection</span>
+              </div>
+              <label class="field">
+                <span>Control</span>
+                <select id="controlSelect"></select>
+              </label>
+              <div class="control-brief" id="controlBrief"></div>
+              <details class="ai-contract">
+                <summary>AI evaluator contract</summary>
+                <pre id="aiContract"></pre>
+              </details>
+              <label class="field">
+                <span>Evidence text or notes</span>
+                <textarea id="evidenceText" rows="9" placeholder="Paste evidence extract, screenshot notes, ticket export text, policy excerpt, or control-owner response."></textarea>
+              </label>
+              <div class="form-grid">
+                <label class="field">
+                  <span>Submitted by</span>
+                  <input id="submittedBy" type="text" placeholder="Owner name" />
+                </label>
+                <label class="field">
+                  <span>Source type</span>
+                  <select id="sourceType">
+                    <option>Screenshot</option>
+                    <option>Policy</option>
+                    <option>Ticket export</option>
+                    <option>System report</option>
+                    <option>Cloud configuration</option>
+                    <option>Access review</option>
+                    <option>Change ticket</option>
+                    <option>Job monitoring log</option>
+                  </select>
+                </label>
+              </div>
+              <div class="button-row">
+                <button class="primary-button" id="runTest" type="button">Run Test</button>
+                <button class="secondary-button" id="saveSubmission" type="button">Save Submission</button>
+              </div>
+            </section>
+
+            <section class="panel result-panel">
+              <div class="panel-header">
+                <h2>Result</h2>
+                <span class="pill" id="confidencePill">Confidence 0%</span>
+              </div>
+              <div class="result-card" id="testResult">
+                <div class="empty-state">Select a control and run an evidence test.</div>
+              </div>
+              <label class="field reviewer-field">
+                <span>Reviewer comment</span>
+                <textarea id="reviewerComment" rows="6" placeholder="Generated comments and human edits appear here."></textarea>
+              </label>
+              <div class="button-row">
+                <button class="success-button" id="acceptEvidence" type="button">Accept</button>
+                <button class="warning-button" id="requestClarification" type="button">Clarify</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="audit" aria-labelledby="audit-title">
+          <div class="section-tools">
+            <div>
+              <h2 id="audit-title">Audit Log</h2>
+              <p>Trace requests, submissions, test results, and reviewer decisions.</p>
+            </div>
+          </div>
+          <div class="timeline" id="auditTimeline"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="requestDialog" aria-labelledby="dialogTitle">
+      <form method="dialog" class="dialog-card">
+        <div class="panel-header">
+          <h2 id="dialogTitle">Create Evidence Request</h2>
+          <button class="icon-button" value="cancel" type="submit" title="Close">×</button>
+        </div>
+        <label class="field">
+          <span>Control</span>
+          <select id="dialogControl"></select>
+        </label>
+        <div class="form-grid">
+          <label class="field">
+            <span>Owner</span>
+            <input id="dialogOwner" type="text" placeholder="control.owner@company.com" />
+          </label>
+          <label class="field">
+            <span>Due date</span>
+            <input id="dialogDue" type="date" />
+          </label>
+        </div>
+        <label class="field">
+          <span>Request message</span>
+          <textarea id="dialogMessage" rows="5"></textarea>
+        </label>
+        <button class="secondary-button" id="generateRequestMessage" type="button">Generate Message</button>
+        <div class="button-row right">
+          <button class="secondary-button" value="cancel" type="submit">Cancel</button>
+          <button class="primary-button" id="createRequest" value="default" type="submit">Create</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="controlDialog" aria-labelledby="controlDialogTitle">
+      <form method="dialog" class="dialog-card">
+        <div class="panel-header">
+          <h2 id="controlDialogTitle">Add Control</h2>
+          <button class="icon-button" value="cancel" type="submit" title="Close">×</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            <span>Control ID</span>
+            <input id="controlIdInput" type="text" placeholder="SOC2-CC7.2" />
+          </label>
+          <label class="field">
+            <span>Framework</span>
+            <input id="frameworkInput" type="text" placeholder="SOC 2" />
+          </label>
+        </div>
+        <label class="field">
+          <span>Title</span>
+          <input id="controlTitleInput" type="text" placeholder="Change Management" />
+        </label>
+        <label class="field">
+          <span>Owner</span>
+          <input id="controlOwnerInput" type="text" placeholder="owner@company.com" />
+        </label>
+        <label class="field">
+          <span>Evidence requirement</span>
+          <textarea id="controlEvidenceInput" rows="3" placeholder="Change tickets, approval records, deployment logs, and date range."></textarea>
+        </label>
+        <label class="field">
+          <span>Test procedure</span>
+          <textarea id="controlProcedureInput" rows="3" placeholder="Verify sampled changes were approved, tested, and deployed during the audit period."></textarea>
+        </label>
+        <label class="field">
+          <span>Keywords</span>
+          <input id="controlKeywordsInput" type="text" placeholder="approved, tested, deployed, q2 2026" />
+        </label>
+        <div class="button-row right">
+          <button class="secondary-button" value="cancel" type="submit">Cancel</button>
+          <button class="primary-button" id="createControl" value="default" type="submit">Create</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="reportDialog" aria-labelledby="reportDialogTitle">
+      <form method="dialog" class="dialog-card report-dialog">
+        <div class="panel-header">
+          <h2 id="reportDialogTitle">Audit Packet Export</h2>
+          <button class="icon-button" value="cancel" type="submit" title="Close">×</button>
+        </div>
+        <textarea id="reportOutput" rows="18" readonly></textarea>
+        <div class="button-row right">
+          <button class="primary-button" value="default" type="submit">Done</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
