@@ -4,88 +4,194 @@ const seedControls = [
   {
     id: "SOC2-CC6.1",
     framework: "SOC 2",
+    domain: "Logical Access",
     title: "Logical Access Provisioning",
     owner: "identity@company.com",
+    system: "Identity provider and in-scope SaaS applications",
+    frequency: "Per occurrence",
+    assertion: "Completeness, accuracy, authorization",
+    risk: "Unauthorized access may allow inappropriate transaction processing or data changes.",
     evidence: "User access export, approval tickets, active user list, and audit-period timestamp.",
     procedure: "Verify access was approved, active users match the population, and evidence covers Q2 2026.",
+    mapping: ["AICPA TSC CC6.1", "COBIT DSS05", "NIST CSF PR.AA"],
     keywords: ["approved", "active users", "q2 2026", "access", "ticket"],
   },
   {
     id: "ISO-A.5.15",
     framework: "ISO 27001",
+    domain: "Access Control",
     title: "Access Control Policy",
     owner: "security@company.com",
+    system: "Information security management system",
+    frequency: "Annual review",
+    assertion: "Governance, consistency, authorization",
+    risk: "Access control expectations may be inconsistently applied without an approved policy.",
     evidence: "Current access control policy with owner, approval date, and annual review record.",
     procedure: "Confirm policy is current, reviewed within the audit period, approved, and mapped to access controls.",
+    mapping: ["ISO/IEC 27001:2022 Annex A 5.15", "NIST CSF GV.PO", "COBIT APO13"],
     keywords: ["policy", "approved", "reviewed", "q2 2026", "owner"],
   },
   {
     id: "SOC2-CC6.6",
     framework: "SOC 2",
+    domain: "Logical Access",
     title: "Multi-Factor Authentication",
     owner: "it-ops@company.com",
+    system: "Identity provider",
+    frequency: "Continuous configuration",
+    assertion: "Authorization, restriction of access",
+    risk: "Single-factor access may increase the likelihood of unauthorized system access.",
     evidence: "MFA configuration report showing enabled status for all active users during Q2 2026.",
     procedure: "Confirm MFA is enforced for all active users, includes date, and lists any exceptions.",
+    mapping: ["AICPA TSC CC6.6", "NIST CSF PR.AA", "ISO/IEC 27001 Annex A 8.5"],
     keywords: ["mfa", "enabled", "all active users", "q2 2026", "exceptions"],
   },
   {
     id: "PCI-10.2",
     framework: "PCI DSS",
+    domain: "Computer Operations",
     title: "Audit Logging",
     owner: "platform@company.com",
+    system: "Cardholder data environment logging platform",
+    frequency: "Continuous logging",
+    assertion: "Completeness, monitoring, traceability",
+    risk: "Security-relevant activity may not be detected, investigated, or retained.",
     evidence: "Logging configuration, sample logs, retention settings, and monitoring alerts.",
     procedure: "Verify logs capture user activity, retention is configured, alerts are enabled, and evidence is dated.",
+    mapping: ["PCI DSS v4.0 Requirement 10", "NIST CSF DE.CM", "COBIT DSS01"],
     keywords: ["logs", "retention", "alerts", "q2 2026", "user activity"],
   },
   {
     id: "SOX-ITGC-LA1",
     framework: "SOX ITGC",
+    domain: "Logical Access",
     title: "User Access Provisioning",
     owner: "sox-itgc@company.com",
+    system: "SOX in-scope applications",
+    frequency: "Per new user",
+    assertion: "Authorization, completeness, accuracy",
+    risk: "Inappropriate access to financially relevant systems may lead to unauthorized transactions or changes.",
     evidence: "SOX in-scope application access requests, manager approvals, role mapping, and provisioning timestamps.",
     procedure:
       "Verify sampled new users for SOX applications were approved before access was granted and role access matches job responsibilities.",
+    mapping: ["PCAOB AS 2201 ITGC", "COSO Control Activities", "COBIT DSS05", "NIST CSF PR.AA"],
     keywords: ["sox", "approved", "provisioned", "role", "timestamp"],
   },
   {
     id: "SOX-ITGC-LA2",
     framework: "SOX ITGC",
+    domain: "Logical Access",
     title: "Terminated User Access Removal",
     owner: "sox-itgc@company.com",
+    system: "SOX in-scope applications",
+    frequency: "Per termination",
+    assertion: "Completeness, timeliness, restriction of access",
+    risk: "Terminated users may retain access to systems impacting financial reporting.",
     evidence: "Terminated user population, HR termination date, deactivation evidence, and access removal timestamps.",
     procedure:
       "Verify terminated users were removed from SOX in-scope systems within policy timeframe and no access remained active.",
+    mapping: ["PCAOB AS 2201 ITGC", "COSO Control Activities", "COBIT DSS05", "NIST CSF PR.AA"],
     keywords: ["sox", "terminated", "deactivated", "timestamp", "active access"],
   },
   {
     id: "SOX-ITGC-PA1",
     framework: "SOX ITGC",
+    domain: "Privileged Access",
     title: "Privileged Access Review",
     owner: "identity@company.com",
+    system: "Privileged access management and SOX applications",
+    frequency: "Quarterly",
+    assertion: "Authorization, appropriateness, segregation of duties",
+    risk: "Privileged users may make unauthorized configuration or data changes impacting ICFR.",
     evidence: "Privileged user listing, reviewer certification, exception approvals, and remediation evidence.",
     procedure:
       "Verify privileged access to SOX systems was reviewed, approved by appropriate management, and exceptions were remediated.",
+    mapping: ["PCAOB AS 2201 ITGC", "COSO Monitoring Activities", "COBIT DSS05", "NIST CSF PR.AA"],
     keywords: ["sox", "privileged", "reviewed", "approved", "remediated"],
   },
   {
     id: "SOX-ITGC-CM1",
     framework: "SOX ITGC",
+    domain: "Change Management",
     title: "Production Change Approval",
     owner: "engineering-ops@company.com",
+    system: "SOX application change pipeline",
+    frequency: "Per production change",
+    assertion: "Authorization, completeness, accuracy",
+    risk: "Unauthorized or untested changes may impact financially relevant processing or reports.",
     evidence: "Change tickets, approvals, testing evidence, deployment record, and segregation of duties support.",
     procedure:
       "Verify sampled production changes affecting SOX systems were approved, tested, and deployed by authorized personnel.",
+    mapping: ["PCAOB AS 2201 ITGC", "COSO Control Activities", "COBIT BAI06", "NIST CSF PR.PS"],
     keywords: ["sox", "change", "approved", "tested", "deployed"],
   },
   {
     id: "SOX-ITGC-CO1",
     framework: "SOX ITGC",
+    domain: "Computer Operations",
     title: "Job Monitoring and Incident Resolution",
     owner: "platform@company.com",
+    system: "Financial batch jobs and monitoring platform",
+    frequency: "Daily monitoring",
+    assertion: "Completeness, timeliness, processing integrity",
+    risk: "Failed or incomplete jobs may cause missing, inaccurate, or late financial data.",
     evidence: "Batch job monitoring logs, failed job alerts, incident tickets, rerun evidence, and resolution approvals.",
     procedure:
       "Verify SOX-relevant scheduled jobs were monitored and failures were investigated, resolved, and approved when rerun.",
+    mapping: ["PCAOB AS 2201 ITGC", "COSO Control Activities", "COBIT DSS01", "NIST CSF DE.CM"],
     keywords: ["sox", "job", "alert", "resolved", "rerun"],
+  },
+];
+
+const frameworkReferences = [
+  {
+    name: "SOX ITGC / ICFR",
+    authority: "PCAOB AS 2201 and SEC SOX Section 404 context",
+    purpose: "Supports reliance on automated controls and financially relevant systems through access, change, and operations controls.",
+    focus: ["Logical access", "Program changes", "Computer operations", "Privileged access"],
+    source: "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201",
+  },
+  {
+    name: "COSO Internal Control",
+    authority: "Committee of Sponsoring Organizations of the Treadway Commission",
+    purpose: "Internal control framework used to structure control environment, risk assessment, control activities, information and communication, and monitoring.",
+    focus: ["Control activities", "Risk assessment", "Monitoring", "Information and communication"],
+    source: "https://www.coso.org/internal-control",
+  },
+  {
+    name: "COBIT 2019",
+    authority: "ISACA",
+    purpose: "Governance and management objectives for enterprise information and technology.",
+    focus: ["DSS05 security services", "BAI06 managed changes", "DSS01 operations", "APO13 security"],
+    source: "https://www.isaca.org/resources/cobit",
+  },
+  {
+    name: "SOC 2 Trust Services Criteria",
+    authority: "AICPA",
+    purpose: "Criteria for evaluating controls relevant to security, availability, processing integrity, confidentiality, and privacy.",
+    focus: ["Common Criteria CC6 logical access", "Monitoring", "Risk mitigation", "System operations"],
+    source: "https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/trustservices",
+  },
+  {
+    name: "ISO/IEC 27001:2022",
+    authority: "International Organization for Standardization",
+    purpose: "Requirements for establishing, implementing, maintaining, and continually improving an information security management system.",
+    focus: ["Annex A organizational controls", "People controls", "Physical controls", "Technological controls"],
+    source: "https://www.iso.org/standard/27001",
+  },
+  {
+    name: "PCI DSS v4.0",
+    authority: "PCI Security Standards Council",
+    purpose: "Security requirements for protecting account data in cardholder data environments.",
+    focus: ["Requirement 7 access", "Requirement 8 authentication", "Requirement 10 logging", "Requirement 11 testing"],
+    source: "https://www.pcisecuritystandards.org/standards/pci-dss",
+  },
+  {
+    name: "NIST Cybersecurity Framework 2.0",
+    authority: "NIST",
+    purpose: "Cybersecurity risk management framework organized around Govern, Identify, Protect, Detect, Respond, and Recover.",
+    focus: ["Govern", "Protect", "Detect", "Respond", "Recover"],
+    source: "https://www.nist.gov/cyberframework",
   },
 ];
 
@@ -165,10 +271,12 @@ function loadState() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     const parsed = JSON.parse(saved);
-    const knownIds = new Set(parsed.controls.map((control) => control.id));
-    const missingControls = seedControls.filter((control) => !knownIds.has(control.id));
+    const controlsById = new Map(parsed.controls.map((control) => [control.id, control]));
+    parsed.controls = seedControls.map((seed) => ({ ...seed, ...(controlsById.get(seed.id) || {}) }));
+    const customControls = [...controlsById.values()].filter((control) => !seedControls.some((seed) => seed.id === control.id));
+    parsed.controls.push(...customControls);
+    const missingControls = seedControls.filter((control) => !controlsById.has(control.id));
     if (missingControls.length > 0) {
-      parsed.controls.push(...missingControls);
       parsed.audit.push(
         auditEntry(
           "System",
@@ -256,7 +364,27 @@ function renderControlBrief() {
     <span>${escapeHtml(control.evidence)}</span>
     <span>${escapeHtml(control.procedure)}</span>
   `;
+  renderWorkpaperGrid(control);
   aiContract.textContent = JSON.stringify(buildAiContract(control), null, 2);
+}
+
+function renderWorkpaperGrid(control) {
+  document.querySelector("#workpaperGrid").innerHTML = [
+    ["Domain", control.domain],
+    ["System", control.system],
+    ["Frequency", control.frequency],
+    ["Assertion", control.assertion],
+    ["Risk", control.risk],
+  ]
+    .map(
+      ([label, value]) => `
+        <div>
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "Not defined")}</strong>
+        </div>
+      `,
+    )
+    .join("");
 }
 
 function buildAiContract(control) {
@@ -275,6 +403,10 @@ function buildAiContract(control) {
       title: control.title,
       evidence_required: control.evidence,
       test_procedure: control.procedure,
+      risk: control.risk,
+      assertion: control.assertion,
+      frequency: control.frequency,
+      framework_mapping: control.mapping,
       required_terms: control.keywords,
     },
   };
@@ -337,6 +469,49 @@ function renderPriorityQueue() {
     .join("");
 }
 
+function renderDomainGrid() {
+  const domains = state.controls
+    .filter((control) => control.framework === "SOX ITGC")
+    .reduce((acc, control) => {
+      acc[control.domain] ||= { total: 0, controls: [] };
+      acc[control.domain].total += 1;
+      acc[control.domain].controls.push(control.id);
+      return acc;
+    }, {});
+
+  document.querySelector("#domainGrid").innerHTML = Object.entries(domains)
+    .map(
+      ([domain, detail]) => `
+        <div class="domain-item">
+          <strong>${escapeHtml(domain)}</strong>
+          <span>${detail.total} controls</span>
+          <small>${escapeHtml(detail.controls.join(", "))}</small>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderFrameworks() {
+  document.querySelector("#frameworkGrid").innerHTML = frameworkReferences
+    .map(
+      (item) => `
+        <article class="framework-card">
+          <div class="framework-card-top">
+            <strong>${escapeHtml(item.name)}</strong>
+            <span>${escapeHtml(item.authority)}</span>
+          </div>
+          <p>${escapeHtml(item.purpose)}</p>
+          <div class="keyword-row">
+            ${item.focus.map((focus) => `<span>${escapeHtml(focus)}</span>`).join("")}
+          </div>
+          <a href="${escapeHtml(item.source)}" target="_blank" rel="noreferrer">Official reference</a>
+        </article>
+      `,
+    )
+    .join("");
+}
+
 function renderControlLibrary() {
   document.querySelector("#controlsGrid").innerHTML = state.controls
     .map((control) => {
@@ -354,6 +529,12 @@ function renderControlLibrary() {
           </div>
           <h3>${escapeHtml(control.title)}</h3>
           <dl>
+            <dt>Domain</dt>
+            <dd>${escapeHtml(control.domain || "Not defined")}</dd>
+            <dt>Risk</dt>
+            <dd>${escapeHtml(control.risk || "Not defined")}</dd>
+            <dt>Assertion</dt>
+            <dd>${escapeHtml(control.assertion || "Not defined")}</dd>
             <dt>Owner</dt>
             <dd>${escapeHtml(control.owner)}</dd>
             <dt>Evidence</dt>
@@ -363,6 +544,9 @@ function renderControlLibrary() {
           </dl>
           <div class="keyword-row">
             ${control.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+          </div>
+          <div class="mapping-list">
+            ${(control.mapping || []).map((mapping) => `<span>${escapeHtml(mapping)}</span>`).join("")}
           </div>
           <button class="secondary-button" type="button" data-request-control="${escapeHtml(control.id)}">Request Evidence</button>
         </article>
@@ -459,6 +643,8 @@ function renderAll() {
   renderMetrics();
   renderChart();
   renderPriorityQueue();
+  renderDomainGrid();
+  renderFrameworks();
   renderControlLibrary();
   renderRequests();
   renderSelectedRequest();
@@ -477,6 +663,18 @@ function testEvidence(control, text) {
 
   if (normalized.length > 120) score += 8;
   else findings.push("Evidence extract is too short to support a full conclusion.");
+
+  if (/\b(q1|q2|q3|q4|2026|audit period)\b/i.test(text)) score += 6;
+  else findings.push("Audit period is not clearly visible in the evidence.");
+
+  if (/\b(population|sample|listing|export|report)\b/i.test(text)) score += 6;
+  else findings.push("Population or sample source is not clear.");
+
+  if (/\b(date|dated|timestamp|exported|review date)\b/i.test(text)) score += 6;
+  else findings.push("Evidence date or timestamp is missing.");
+
+  if (/\b(owner|manager|reviewer|approver|authorized)\b/i.test(text)) score += 6;
+  else findings.push("Approver, reviewer, or control owner context is missing.");
 
   const hasExceptionLanguage = /(exception|exceptions|gap|missing|failed|most)/i.test(text);
   const hasApprovalContext = /(approved|approval|approvals|exception register)/i.test(text);

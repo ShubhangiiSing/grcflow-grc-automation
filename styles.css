@@ -280,6 +280,70 @@ p {
   gap: 18px;
 }
 
+.lower-band {
+  margin-top: 18px;
+}
+
+.method-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.method-list div,
+.domain-item {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+  padding: 12px;
+}
+
+.method-list span,
+.domain-item span,
+.domain-item small {
+  color: var(--muted);
+}
+
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.framework-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.framework-card {
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.framework-card-top {
+  display: grid;
+  gap: 4px;
+}
+
+.framework-card-top span {
+  color: var(--muted);
+}
+
+.framework-card a {
+  color: var(--accent-2);
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .controls-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -349,6 +413,20 @@ p {
   color: var(--muted);
   padding: 4px 8px;
   font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mapping-list {
+  display: grid;
+  gap: 6px;
+}
+
+.mapping-list span {
+  border-left: 3px solid var(--accent);
+  background: #f8fafc;
+  color: #334155;
+  padding: 7px 9px;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -538,6 +616,33 @@ textarea {
   color: var(--ink);
 }
 
+.workpaper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.workpaper-grid div {
+  display: grid;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+  padding: 10px;
+}
+
+.workpaper-grid span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.workpaper-grid strong {
+  line-height: 1.35;
+}
+
 .ai-contract {
   margin-top: 14px;
   border: 1px solid var(--line);
@@ -678,7 +783,7 @@ dialog::backdrop {
   }
 
   .nav-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .nav-item {
